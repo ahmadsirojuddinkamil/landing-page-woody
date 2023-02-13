@@ -4,6 +4,8 @@ namespace Modules\Chat\Database\Seeders;
 
 use Illuminate\Database\Seeder;
 use Illuminate\Database\Eloquent\Model;
+use Modules\Chat\Entities\User;
+use Faker\Factory as Faker;
 
 class ChatDatabaseSeeder extends Seeder
 {
@@ -14,8 +16,15 @@ class ChatDatabaseSeeder extends Seeder
      */
     public function run()
     {
-        Model::unguard();
+        $faker = Faker::create('id_ID');
 
-        // $this->call("OthersTableSeeder");
+        // Dummy data user
+        for ($i = 1; $i <= 30; $i++) {
+            User::insert([
+                'name' => $faker->name,
+                'email' => $faker->unique->safeEmail,
+                'password' => bcrypt('secret')
+            ]);
+        }
     }
 }

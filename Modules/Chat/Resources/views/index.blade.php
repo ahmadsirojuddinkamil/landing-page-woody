@@ -1,11 +1,26 @@
-@extends('chat::layouts.master')
+<!DOCTYPE html>
+<html lang="en">
 
-@section('content')
-    <h1>Hello World</h1>
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>{{ $title }}</title>
+    <meta content='width=device-width, initial-scale=1.0, shrink-to-fit=no' name='viewport' />
 
-    <h2>ini halaman chat</h2>
+    <link rel="icon" href="" type="image/x-icon" />
 
-    <p>
-        This view is loaded from module: {!! config('chat.name') !!}
-    </p>
-@endsection
+    @include('chat::components.css')
+</head>
+
+<body>
+
+    @include('chat::components.header')
+
+    @include('chat::components.sidebar')
+
+    @include('chat::layouts.dashboard.index')
+
+    @include('chat::components.js')
+
+</body>
+
+</html>
