@@ -6,6 +6,7 @@ use Illuminate\Database\Seeder;
 use Illuminate\Database\Eloquent\Model;
 use Modules\Chat\Entities\User;
 use Faker\Factory as Faker;
+use GuzzleHttp\Promise\Create;
 
 class ChatDatabaseSeeder extends Seeder
 {
@@ -16,15 +17,8 @@ class ChatDatabaseSeeder extends Seeder
      */
     public function run()
     {
-        $faker = Faker::create('id_ID');
 
         // Dummy data user
-        for ($i = 1; $i <= 30; $i++) {
-            User::insert([
-                'name' => $faker->name,
-                'email' => $faker->unique->safeEmail,
-                'password' => bcrypt('secret')
-            ]);
-        }
+        User::factory(30)->create();
     }
 }

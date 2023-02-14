@@ -68,18 +68,18 @@
                                     @foreach ($allUser as $index => $user)
                                         <tr>
                                             <th scope="row">
-                                                {{ $index + $allUser->firstItem() }}
+                                                {{ $index + $allUser->firstItem() }} 
                                             </th>
 
                                             <td>{{ $user->name }}</td>
                                             <td>{{ $user->email }}</td>
                                             {{-- <td>{{ $user->password }}</td> --}}
                                             <td>
-                                                <a href="/user/{{ $user->id }}" class="badge bg-primary">
+                                                <a href="{{ route('user.show', $user->id) }}" class="badge bg-primary">
                                                     <i class="fas fa-portrait text-white"></i>
                                                 </a>
 
-                                                <a href="/user/{{ $user->id }}/edit" class="badge bg-primary">
+                                                <a href="{{ route('user.edit', $user->id) }}" class="badge bg-primary">
                                                     <i class="fas fa-edit text-white"></i>
                                                 </a>
 
@@ -107,7 +107,7 @@
                                                                 <button type="button" class="btn btn-secondary"
                                                                     data-bs-dismiss="modal">Batal</button>
 
-                                                                <form action="/user/{{ $user->id }}" method="POST"
+                                                                <form action="{{ route('user.destroy', $user->id) }}" method="POST"
                                                                     class="d-inline">
                                                                     @method('delete')
                                                                     @csrf
