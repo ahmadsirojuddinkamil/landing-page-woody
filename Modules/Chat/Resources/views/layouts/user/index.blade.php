@@ -83,8 +83,18 @@
                                                     <i class="fas fa-edit text-white"></i>
                                                 </a>
 
-                                                <button type="button" class="badge bg-danger" data-bs-toggle="modal"
-                                                    data-bs-target="#exampleModal">
+                                                <form action="/user/{{ $user->id }}" method="POST"
+                                                    class="d-inline">
+                                                    @method('delete')
+                                                    @csrf
+
+                                                    <button type="submit" class="badge bg-danger" onclick="{{ return confirm('Apakah anda yakin untuk menghapus user ini? data akan terhapus permanen!') }}">
+                                                        <i class="fas fa-trash text-white"></i>
+                                                    </button>
+                                                </form>
+
+                                                {{-- <button type="button" class="badge bg-danger" data-bs-toggle="modal"
+                                                    data-bs-target="#exampleModal" data-id="{{ $user->id }}">
                                                     <i class="fas fa-trash text-white"></i>
                                                 </button>
 
@@ -119,7 +129,7 @@
                                                             </div>
                                                         </div>
                                                     </div>
-                                                </div>
+                                                </div> --}}
 
                                             </td>
                                         </tr>
