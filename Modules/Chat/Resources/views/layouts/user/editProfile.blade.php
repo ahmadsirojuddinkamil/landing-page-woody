@@ -39,57 +39,34 @@
                         <div class="card">
 
                             <div class="card-header">
-                                <div class="card-title">Form Tambah User</div>
+                                <div class="card-title">Form Edit User</div>
                             </div>
 
-                            <form action="/user" method="POST" class="p-2">
+                            <form class="p-2" method="POST" action="/user/{{ $dataUser->id }}">
+                                @method('put')
                                 @csrf
 
                                 <div class="form-group">
                                     <label for="name">Name</label>
                                     <input type="text" class="form-control" id="name"
-                                        placeholder="Isikan Name ..." name="name">
+                                        placeholder="Isikan Name ..." name="name"
+                                        value="{{ old('name', $dataUser->name) }}">
                                 </div>
 
                                 <div class="form-group">
                                     <label for="email">Email</label>
                                     <input type="email" class="form-control" id="email"
-                                        placeholder="Isikan Email ..." name="email">
+                                        placeholder="Isikan Email ..." name="email"
+                                        value="{{ old('email', $dataUser->email) }}">
                                 </div>
 
                                 <div class="form-group">
                                     <label for="password">Password</label>
                                     <input type="password" class="form-control" id="password" placeholder="Password"
-                                        name="password">
+                                        name="password" value="{{ old('password', $dataUser->password) }}">
                                 </div>
 
-                                <button type="button" class="btn btn-primary ml-3 mt-3" data-bs-toggle="modal"
-                                    data-bs-target="#exampleModal">
-                                    Submit
-                                </button>
-
-                                <div class="modal fade" id="exampleModal" tabindex="-1"
-                                    aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                    <div class="modal-dialog">
-                                        <div class="modal-content">
-                                            <div class="modal-header">
-                                                <h1 class="modal-title fs-5" id="exampleModalLabel">
-                                                    Tambah User?
-                                                </h1>
-                                            </div>
-
-                                            <div class="modal-body">
-                                                Apakah anda yakin data user sudah benar!
-                                            </div>
-
-                                            <div class="modal-footer">
-                                                <button type="button" class="btn btn-secondary"
-                                                    data-bs-dismiss="modal">Batal</button>
-                                                <button type="submit" class="btn btn-primary">Ya</button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+                                <button class="btn btn-primary ml-3 mt-3" type="submit">Submit</button>
                             </form>
 
                         </div>

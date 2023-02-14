@@ -59,20 +59,27 @@
                                         <th scope="col">#</th>
                                         <th scope="col">Nama</th>
                                         <th scope="col">Email</th>
-                                        <th scope="col">Password</th>
+                                        {{-- <th scope="col">Password</th> --}}
                                         <th scope="col">ACTION</th>
                                     </tr>
                                 </thead>
 
                                 <tbody>
-                                    @foreach ($allUser as $user)
+                                    @foreach ($allUser as $index => $user)
                                         <tr>
-                                            <th scope="row">{{ $loop->iteration }}</th>
+                                            <th scope="row">
+                                                {{ $index + $allUser->firstItem() }}
+                                            </th>
+
                                             <td>{{ $user->name }}</td>
                                             <td>{{ $user->email }}</td>
-                                            <td>{{ $user->password }}</td>
+                                            {{-- <td>{{ $user->password }}</td> --}}
                                             <td>
-                                                <a href="" class="badge bg-primary">
+                                                <a href="/user/{{ $user->id }}" class="badge bg-primary">
+                                                    <i class="fas fa-portrait text-white"></i>
+                                                </a>
+
+                                                <a href="/user/{{ $user->id }}/edit" class="badge bg-primary">
                                                     <i class="fas fa-edit text-white"></i>
                                                 </a>
 
@@ -99,8 +106,16 @@
                                                             <div class="modal-footer">
                                                                 <button type="button" class="btn btn-secondary"
                                                                     data-bs-dismiss="modal">Batal</button>
-                                                                <button type="button" class="btn btn-primary">Ya
-                                                                    hapus!</button>
+
+                                                                <form action="/user/{{ $user->id }}" method="POST"
+                                                                    class="d-inline">
+                                                                    @method('delete')
+                                                                    @csrf
+
+                                                                    <button type="submit" class="btn btn-primary">
+                                                                        Ya Hapus!
+                                                                    </button>
+                                                                </form>
                                                             </div>
                                                         </div>
                                                     </div>
