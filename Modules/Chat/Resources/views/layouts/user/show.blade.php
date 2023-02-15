@@ -55,7 +55,7 @@
                                         <th scope="col" class=" text-center">Nama</th>
                                         <th scope="col" class=" text-center">Email</th>
                                         <th scope="col" class=" text-center">Password</th>
-                                        <th scope="col" class=" text-center">ACTION</th>
+                                        <th scope="col">ACTION</th>
                                     </tr>
                                 </thead>
 
@@ -64,7 +64,7 @@
                                         <td class=" text-center">{{ $detail->name }}</td>
                                         <td class=" text-center">{{ $detail->email }}</td>
                                         <td class=" text-center">{{ $detail->password }}</td>
-                                        <td class=" text-center">
+                                        <td>
                                             <a href="/user/{{ $detail->id }}/edit" class="badge bg-primary">
                                                 <i class="fas fa-edit text-white"></i>
                                             </a>

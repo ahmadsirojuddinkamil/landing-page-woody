@@ -8,6 +8,9 @@
 
     <link rel="icon" href="" type="image/x-icon" />
 
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css"
+        integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
+
     @include('chat::components.css')
 </head>
 
@@ -59,7 +62,6 @@
                                         <th scope="col">#</th>
                                         <th scope="col">Nama</th>
                                         <th scope="col">Email</th>
-                                        {{-- <th scope="col">Password</th> --}}
                                         <th scope="col">ACTION</th>
                                     </tr>
                                 </thead>
@@ -73,9 +75,8 @@
 
                                             <td>{{ $user->name }}</td>
                                             <td>{{ $user->email }}</td>
-                                            {{-- <td>{{ $user->password }}</td> --}}
                                             <td>
-                                                <a href="/user/{{ $user->id }}" class="badge bg-primary">
+                                                <a href="/user/{{ $user->id }}" class="badge bg-warning">
                                                     <i class="fas fa-portrait text-white"></i>
                                                 </a>
 
@@ -84,12 +85,13 @@
                                                 </a>
 
                                                 <button type="button" class="badge bg-danger" data-bs-toggle="modal"
-                                                    data-bs-target="#exampleModal">
+                                                    data-bs-target="#exampleModal{{ $user->id }}">
                                                     <i class="fas fa-trash text-white"></i>
                                                 </button>
 
-                                                <div class="modal fade" id="exampleModal" tabindex="-1"
-                                                    aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                <div class="modal fade" id="exampleModal{{ $user->id }}"
+                                                    tabindex="-1" aria-labelledby="exampleModalLabel"
+                                                    aria-hidden="true">
                                                     <div class="modal-dialog">
                                                         <div class="modal-content">
                                                             <div class="modal-header">

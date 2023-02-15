@@ -16,7 +16,6 @@ class UserController extends Controller
      */
     public function index()
     {
-        // $dataSearch = User::where('id', auth()->user()->id)->latest();
         $dataSearch = User::latest();
 
         if (request('search')) {
@@ -25,7 +24,7 @@ class UserController extends Controller
 
         return view('chat::layouts.user.index', [
             'title' => 'Dashboard | User Manager',
-            'allUser' => $dataSearch->paginate(8)
+            'allUser' => $dataSearch->paginate(8),
         ]);
     }
 
@@ -107,9 +106,11 @@ class UserController extends Controller
      * @param int $id
      * @return Renderable
      */
-    public function destroy(User $user)
+    public function destroy($id)
     {
-        User::destroy($user->id);
+        $data = User::findOrFail($id);
+
+        $data->delete();
 
         return redirect('/user')->with('success', 'Data user berhasil dihapus!');
     }

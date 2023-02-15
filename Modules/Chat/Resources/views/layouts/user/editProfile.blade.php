@@ -66,7 +66,38 @@
                                         name="password" value="{{ old('password', $dataUser->password) }}">
                                 </div>
 
-                                <button class="btn btn-primary ml-3 mt-3" type="submit">Submit</button>
+                                {{-- <button class="btn btn-primary ml-3 mt-3" type="submit">Submit</button> --}}
+
+                                <button type="button" class="btn btn-primary ml-3 mt-3" data-bs-toggle="modal"
+                                    data-bs-target="#exampleModal">
+                                    Submit
+                                </button>
+
+                                <div class="modal fade" id="exampleModal" tabindex="-1"
+                                    aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h1 class="modal-title fs-5" id="exampleModalLabel">
+                                                    Edit Data User?
+                                                </h1>
+                                            </div>
+
+                                            <div class="modal-body">
+                                                Apakah anda yakin untuk mengubah data user ini?
+                                            </div>
+
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary"
+                                                    data-bs-dismiss="modal">Batal</button>
+
+                                                <button type="submit" class="btn btn-primary">
+                                                    Ya Update!
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </form>
 
                         </div>
