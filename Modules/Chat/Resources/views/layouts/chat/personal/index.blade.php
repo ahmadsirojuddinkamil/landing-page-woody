@@ -9,7 +9,6 @@
     <link rel="icon" href="" type="image/x-icon" />
 
     @include('chat::components.css')
-    @include('chat::components.file')
 </head>
 
 <body>
@@ -39,10 +38,6 @@
                     <div class="col-md-12">
                         <div class="card">
 
-                            <div class="card-header">
-                                <div class="card-title">Ini halaman personal chat</div>
-                            </div>
-
                             <div class="p-4">
                                 <section style="background-color: #CDC4F9;">
                                     <div class="container py-5">
@@ -58,6 +53,7 @@
 
                                                                 <div class="p-3">
 
+                                                                    {{-- search --}}
                                                                     <div class="input-group rounded mb-3">
                                                                         <input type="search"
                                                                             class="form-control rounded"
@@ -69,6 +65,7 @@
                                                                         </span>
                                                                     </div>
 
+                                                                    {{-- list user chat --}}
                                                                     <div data-mdb-perfect-scrollbar="true"
                                                                         style="position: relative; height: 400px">
                                                                         <ul class="list-unstyled mb-0">
