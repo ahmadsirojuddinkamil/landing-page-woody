@@ -93,7 +93,7 @@
                                                             <button type="button" class="btn btn-secondary"
                                                                 data-bs-dismiss="modal">Batal</button>
 
-                                                            <form action="/user/{{ $detail->id }}" method="POST"
+                                                            <form action="{{ route('user.destroy', $detail->id) }}" method="POST"
                                                                 class="d-inline">
                                                                 @method('delete')
                                                                 @csrf

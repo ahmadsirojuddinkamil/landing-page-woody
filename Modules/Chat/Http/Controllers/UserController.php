@@ -14,18 +14,17 @@ class UserController extends Controller
      * Display a listing of the resource.
      * @return Renderable
      */
-    public function index()
+    public function index(User $user)
     {
         // $dataSearch = User::where('id', auth()->user()->id)->latest();
-        $dataSearch = User::latest();
 
         if (request('search')) {
-            $dataSearch->where('name', 'like', '%' . request('search') . '%');
+            $user->where('name', 'like', '%' . request('search') . '%');
         }
 
         return view('chat::layouts.user.index', [
             'title' => 'Dashboard | User Manager',
-            'allUser' => $dataSearch->paginate(8)
+            'allUser' => $user->paginate(8),
         ]);
     }
 
@@ -107,10 +106,11 @@ class UserController extends Controller
      * @param int $id
      * @return Renderable
      */
-    public function destroy(User $user)
+    public function destroy($id)
     {
-        User::destroy($user->id);
+        $user = User::where('id', $id);
+        $user->delete();
 
-        return redirect('/user')->with('success', 'Data user berhasil dihapus!');
+        return redirect()->route('user.index')->with('success', 'Data user berhasil dihapus!');
     }
 }
