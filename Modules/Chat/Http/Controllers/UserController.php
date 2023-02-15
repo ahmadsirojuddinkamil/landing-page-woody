@@ -6,7 +6,7 @@ use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Modules\Chat\Entities\User;
-use Modules\Chat\Http\Requests\CreateUserRequest;
+use Modules\Chat\Http\Requests\{CreateUserRequest, UpdateUserRequest};
 
 class UserController extends Controller
 {
@@ -16,9 +16,16 @@ class UserController extends Controller
      */
     public function index()
     {
+        // $dataSearch = User::where('id', auth()->user()->id)->latest();
+        $dataSearch = User::latest();
+
+        if (request('search')) {
+            $dataSearch->where('name', 'like', '%' . request('search') . '%');
+        }
+
         return view('chat::layouts.user.index', [
             'title' => 'Dashboard | User Manager',
-            'allUser' => User::latest()->paginate(8)
+            'allUser' => $dataSearch->paginate(8)
         ]);
     }
 
@@ -29,7 +36,7 @@ class UserController extends Controller
     public function create()
     {
         return view('chat::layouts.user.create', [
-            'title' => 'Dashboard | Tambah User Baru',
+            'title' => 'Dashboard | Tambah User Baru'
         ]);
     }
 
@@ -56,9 +63,12 @@ class UserController extends Controller
      * @param int $id
      * @return Renderable
      */
-    public function show($id)
+    public function show(User $user)
     {
-        return view('chat::show');
+        return view('chat::layouts.user.show', [
+            'title' => 'Dashboard | Detail Data User',
+            'detail' => $user
+        ]);
     }
 
     /**
@@ -66,9 +76,12 @@ class UserController extends Controller
      * @param int $id
      * @return Renderable
      */
-    public function edit($id)
+    public function edit(User $user)
     {
-        return view('chat::edit');
+        return view('chat::layouts.user.editProfile', [
+            'title' => 'Dashboard | User Edit Profile',
+            'dataUser' => $user
+        ]);
     }
 
     /**
@@ -77,9 +90,16 @@ class UserController extends Controller
      * @param int $id
      * @return Renderable
      */
-    public function update(Request $request, $id)
+    public function update(UpdateUserRequest $request, User $user)
     {
-        //
+        $validateData = $request->validated();
+
+        $raw = $request->password;
+
+        $validateData['password'] = bcrypt($raw);
+
+        User::where('id', $user->id)->update($validateData);
+        return redirect('/user')->with('success', 'Data user berhasil di update!');
     }
 
     /**
@@ -87,8 +107,10 @@ class UserController extends Controller
      * @param int $id
      * @return Renderable
      */
-    public function destroy($id)
+    public function destroy(User $user)
     {
-        //
+        User::destroy($user->id);
+
+        return redirect('/user')->with('success', 'Data user berhasil dihapus!');
     }
 }
