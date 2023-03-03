@@ -16,28 +16,114 @@
         <div class="container-fluid">
 
             {{-- search --}}
-            <div class="collapse" id="search-nav">
-                <form class="navbar-left navbar-form nav-search mr-md-3" action="/user" method="GET">
-                    <div class="input-group">
-                        <div class="input-group-prepend">
-                            <button type="submit" class="btn btn-search pr-1">
-                                <i class="fa fa-search search-icon"></i>
-                            </button>
+            @if (Request::is('user*'))
+                <div class="collapse" id="search-nav">
+                    <form class="navbar-left navbar-form nav-search mr-md-3" action="/user" method="GET">
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <button type="submit" class="btn btn-search pr-1">
+                                    <i class="fa fa-search search-icon"></i>
+                                </button>
+                            </div>
+                            <input type="search" placeholder="Search ..." class="form-control" name="search"
+                                value="{{ request('search') }}">
                         </div>
-                        <input type="search" placeholder="Search ..." class="form-control" name="search"
-                            value="{{ request('search') }}">
-                    </div>
-                </form>
-            </div>
+                    </form>
+                </div>
+            @endif
 
             <ul class="navbar-nav topbar-nav ml-md-auto align-items-center">
 
+                {{-- get search --}}
                 <li class="nav-item toggle-nav-search hidden-caret">
                     <a class="nav-link" data-toggle="collapse" href="#search-nav" role="button" aria-expanded="false"
                         aria-controls="search-nav">
                         <i class="fa fa-search"></i>
                     </a>
                 </li>
+
+                {{-- panel chat --}}
+                @if (Request::is('floating*'))
+                    <li class="nav-item dropdown hidden-caret">
+
+                        <a class="nav-link dropdown-toggle mt-2" href="#" id="messageDropdown" role="button"
+                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <i class="fa fa-envelope" style="height: 20px; width: 20px"></i>
+                        </a>
+
+                        <ul class="dropdown-menu messages-notif-box animated fadeIn" aria-labelledby="messageDropdown">
+
+                            <div class="messenger">
+                                <div class="messenger-listView">
+
+                                    {{-- Header and search bar --}}
+                                    <div class="m-header">
+
+                                        {{-- Search input --}}
+                                        <input type="text" class="form-control messenger-search"
+                                            placeholder="Search">
+
+                                        {{-- Tabs --}}
+                                        <div class="messenger-listView-tabs justify-content-center">
+                                            <span @if ($type == 'user') class="active-tab" @endif
+                                                data-view="users">
+                                                <span class="far fa-user"></span>Daftar Chat
+                                            </span>
+                                        </div>
+                                    </div>
+
+                                    {{-- tabs and lists --}}
+                                    <div class="m-body contacts-container">
+                                        {{-- Lists [Users/Group] --}}
+                                        {{-- ---------------- [ User Tab ] ---------------- --}}
+                                        <div class="@if ($type == 'user') show @endif messenger-tab users-tab app-scroll"
+                                            data-view="users">
+
+                                            {{-- Favorites --}}
+                                            <div class="favorites-section">
+                                                <p class="messenger-title">Favorites</p>
+                                                <div class="messenger-favorites app-scroll-thin"></div>
+                                            </div>
+
+                                            {{-- Contact --}}
+                                            <div class="example-scroll">
+                                                <div class="listOfContacts"
+                                                    style="width: 100%;height: calc(100% - 200px);position: relative;">
+                                                </div>
+                                            </div>
+
+                                        </div>
+
+                                        {{-- ---------------- [ Group Tab ] ---------------- --}}
+                                        <div class="@if ($type == 'group') show @endif messenger-tab groups-tab app-scroll"
+                                            data-view="groups">
+                                            {{-- items --}}
+                                            <p style="text-align: center;color:grey;margin-top:30px">
+                                                <a target="_blank" style="color:{{ $messengerColor }};"
+                                                    href="https://chatify.munafio.com/notes#groups-feature">Click
+                                                    here</a> for more info!
+                                            </p>
+                                        </div>
+
+                                        {{-- ---------------- [ Search Tab ] ---------------- --}}
+                                        <div class="messenger-tab search-tab app-scroll"app-scroll" data-view="search">
+                                            {{-- items --}}
+                                            <div class="search-records example-scroll">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            {{-- <li>
+                                <a class="see-all" href="javascript:void(0);">See all messages<i
+                                        class="fa fa-angle-right"></i>
+                                </a>
+                            </li> --}}
+
+                        </ul>
+                    </li>
+                @endif
 
                 {{-- profile --}}
                 <li class="nav-item dropdown hidden-caret">
@@ -59,10 +145,6 @@
                                             alt="image profile" class="avatar-img rounded"></div>
 
                                     <div class="u-text">
-                                        {{-- @foreach ($users as $user)
-                                            <h4>{{ $user->name }}</h4>
-                                            <p class="text-muted">{{ $user->email }}</p>
-                                        @endforeach --}}
                                         <h4>ahmad sirojuddin kamil</h4>
                                         <p class="text-muted">kamil@gmail.com</p>
                                     </div>
@@ -72,9 +154,6 @@
 
                             <li>
                                 <div class="dropdown-divider"></div>
-                                {{-- <a class="dropdown-item" href="/user/{{ $user->id }}/edit">Setting Akun</a>
-                                    <div class="dropdown-divider"></div> --}}
-
                                 <form method="POST" action="{{ route('logout') }}">
                                     @csrf
 

@@ -28,10 +28,11 @@
                 </li>
 
                 {{-- chat --}}
-                <li class="nav-item">
+                <li class="nav-item {{ Request::is('floating*') ? 'active' : '' }}">
 
                     <a data-toggle="collapse" href="#base">
-                        <i class="fas fa-comment-dots mr-3 fa-lg text-muted"></i>
+                        <i
+                            class="fas fa-comment-dots mr-3 fa-lg {{ Request::is('floating*') ? 'text-white' : 'text-muted' }}"></i>
                         <p>Chat</p>
                         <span class="caret"></span>
                     </a>
@@ -39,20 +40,15 @@
                     <div class="collapse" id="base">
                         <ul class="nav nav-collapse">
                             <li>
-                                <a href="">
-                                    <span class="sub-item">Interface Chatting</span>
+                                <a href="/chatify">
+                                    <span class="sub-item">Interface Chat</span>
                                 </a>
                             </li>
 
                             <li>
-                                <a href="">
-                                    <span class="sub-item">Single Page</span>
-                                </a>
-                            </li>
-
-                            <li>
-                                <a href="">
-                                    <span class="sub-item">Floating Chat</span>
+                                <a href="/floating">
+                                    <span class="sub-item {{ Request::is('floating*') ? 'text-primary' : '' }}">Floating
+                                        Chat</span>
                                 </a>
                             </li>
                         </ul>
